@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-02-feedback",
+  "name": "goit-react-hw-02-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://adrilix.github.io/goit-react-hw-02-feedback/",
+  "homepage": "https://adrilix.github.io/goit-react-hw-02-phonebook/",
   "dependencies": {
     "date-fns": "^2.30.0",
     "formik": "^2.4.2",
