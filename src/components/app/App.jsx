@@ -1,26 +1,99 @@
+import { Form } from 'formik';
 import React, { Component } from 'react';
 // import { nanoid } from 'nanoid'
 
-
-
 export class App extends Component {
   state = {
-    contacts: [],
-    filter: ''
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filter: [],
+    name: '',
+    number: '',
   };
 
+  handleInputName = event => {
+    const newContactName = event.target.value;
+    console.log(newContactName);
+  };
+
+  handleInputNumber = event => {
+    const newContactNumber = event.target.value;
+    console.log(newContactNumber);
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+  };
 
   render() {
-    const { contacts , filter} = this.state;
+    // const { contacts, filter } = this.state;
     return (
       <>
-        <input
-          type="text"
-          name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-        />
+        <h1>Phonebook</h1>
+        <form>
+          <div role="group" aria-labelledby="add-new-contact">
+            <label>
+              Name
+              <input
+                onChange={this.handleInputName}
+                type="text"
+                name="name"
+                pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+                required
+              />
+            </label>
+
+            <label>
+              Number
+              <input
+                onChange={this.handleInputNumber}
+                type="tel"
+                name="number"
+                pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+                required
+              />
+            </label>
+
+            <button onSubmit={this.handleSubmit} type="submit">
+              Add contact
+            </button>
+          </div>
+
+          <div role="group" aria-labelledby="find-contact">
+            <h2>Contacts</h2>
+            <label>
+              Find contact by name
+              <input title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan" />
+            </label>
+          </div>
+        </form>
+
+        <div>
+          <ul>
+            <li>
+              {this.state.contacts[0].id}
+              <button>delete contact</button>
+            </li>
+            <li>
+              {this.state.contacts[1].id}
+              <button>delete contact</button>
+            </li>
+            <li>
+              {this.state.contacts[2].id}
+              <button>delete contact</button>
+            </li>
+            <li>
+              {this.state.contacts[3].id}
+              <button>delete contact</button>
+            </li>
+          </ul>
+        </div>
       </>
     );
   }
