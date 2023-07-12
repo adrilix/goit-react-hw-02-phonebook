@@ -1,59 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
+// import { nanoid } from 'nanoid'
 
-import Section from '../Section/Section';
-import FeedbackOptions from 'components/FeedbackOptions/FeedbackOption';
-import Statistics from 'components/Statistics/Statistics';
-import Notification from '../Notification/Notification';
 
-export class App extends React.Component {
-  // static defaultProps ={
-  //       good: 0,
-  //       neutral: 0,
-  //       bad: 0,
-  // // };
 
+export class App extends Component {
   state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+    contacts: [],
+    filter: ''
   };
 
-  leaveFeedback = feedbackName => {
-    this.setState(prevState => ({
-      [feedbackName]: prevState[feedbackName] + 1,
-    }));
-  };
-
-  total = () => {
-    return this.state.good + this.state.neutral + this.state.bad;
-  };
-
-  positivePercentage = () =>
-    this.state.good === 0
-      ? 0
-      : Math.ceil((this.state.good / this.total()) * 100);
 
   render() {
+    const { contacts , filter} = this.state;
     return (
       <>
-        <Section title="Please leave feedback">
-          <FeedbackOptions leaveFeedback={this.leaveFeedback} />
-        </Section>
-
-        {(this.total() === 0) 
-        ? (<Section>
-            <Notification message="There is no feedback"></Notification>{' '}
-          </Section>)
-        : ( <Section title="Statistics">
-            <Statistics
-              good={this.state.good}
-              neutral={this.state.neutral}
-              bad={this.state.bad}
-              total={this.total()}
-              positivePercentage={this.positivePercentage()}
-            ></Statistics>
-          </Section>
-        )}
+        <input
+          type="text"
+          name="name"
+          pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+        />
       </>
     );
   }
