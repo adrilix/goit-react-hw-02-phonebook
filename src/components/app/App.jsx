@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import ContactForm from '../ContactForm/ContactForm'
 import { nanoid } from 'nanoid';
+import { DivStyled } from './AppStyled';
 
 export class App extends Component {
   state = {
@@ -38,8 +39,8 @@ export class App extends Component {
   render() {
     // const { contacts, filter } = this.state;
     return (
-      <>
-        <h1>Phonebook</h1>
+        <DivStyled>
+          <h1>Phonebook</h1>
         <ContactForm onSubmit = {this.handleSubmit}></ContactForm>
 
         {/* <div>
@@ -70,7 +71,7 @@ export class App extends Component {
             </li>
           </ul>
         </div> */}
-      </>
+        </DivStyled>
     );
   }
 }
