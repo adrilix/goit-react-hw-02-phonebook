@@ -1,6 +1,7 @@
-import { Form } from 'formik';
 import React, { Component } from 'react';
-// import { nanoid } from 'nanoid'
+
+import ContactForm from '../ContactForm/ContactForm'
+import { nanoid } from 'nanoid';
 
 export class App extends Component {
   state = {
@@ -10,7 +11,7 @@ export class App extends Component {
       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-    filter: [],
+    filter: '',
     name: '',
     number: '',
   };
@@ -25,8 +26,13 @@ export class App extends Component {
     console.log(newContactNumber);
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
+  handleSubmit = ({ name, number }) => {
+    const contact = {
+      id: nanoid(),
+      name,
+      number,
+    };
+    console.log(contact);
   };
 
   render() {
@@ -34,45 +40,15 @@ export class App extends Component {
     return (
       <>
         <h1>Phonebook</h1>
-        <form>
-          <div role="group" aria-labelledby="add-new-contact">
-            <label>
-              Name
-              <input
-                onChange={this.handleInputName}
-                type="text"
-                name="name"
-                pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                required
-              />
-            </label>
+        <ContactForm onSubmit = {this.handleSubmit}></ContactForm>
 
-            <label>
-              Number
-              <input
-                onChange={this.handleInputNumber}
-                type="tel"
-                name="number"
-                pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                required
-              />
-            </label>
-
-            <button onSubmit={this.handleSubmit} type="submit">
-              Add contact
-            </button>
-          </div>
-
-          <div role="group" aria-labelledby="find-contact">
+        {/* <div>
             <h2>Contacts</h2>
             <label>
               Find contact by name
-              <input title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan" />
+              <input type="text"name="name"/>
             </label>
           </div>
-        </form>
 
         <div>
           <ul>
@@ -93,7 +69,7 @@ export class App extends Component {
               <button>delete contact</button>
             </li>
           </ul>
-        </div>
+        </div> */}
       </>
     );
   }
