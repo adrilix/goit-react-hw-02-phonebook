@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import ContactForm from '../ContactForm/ContactForm'
+import Filter from '../Filter/Filter'
 import { nanoid } from 'nanoid';
 import { DivStyled } from './AppStyled';
 
@@ -13,18 +14,6 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
-  };
-
-  handleInputName = event => {
-    const newContactName = event.target.value;
-    console.log(newContactName);
-  };
-
-  handleInputNumber = event => {
-    const newContactNumber = event.target.value;
-    console.log(newContactNumber);
   };
 
   handleSubmit = ({ name, number }) => {
@@ -33,44 +22,35 @@ export class App extends Component {
       name,
       number,
     };
-    console.log(contact);
+    const findedName = this.state.contacts.find(
+      el => el.name.toLowerCase() === contact.name.toLowerCase()
+    );
+    findedName
+      ? alert(`Contact ${contact.name} is already in the contacts list`)
+      : this.setState(prevState=>{
+        return (
+          {contacts: [contact, ...prevState.contacts]}
+          )})
   };
+
+      filterChange = event =>(
+          this.setState({filter: event.target.value}))
+
+      getFindedContact = () => {
+        const{contacts, filter} = this.state;
+        const normalizedFilter = filter.toLocaleLowerCase;
+
+        return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter))
+      }
+      
 
   render() {
     // const { contacts, filter } = this.state;
     return (
         <DivStyled>
           <h1>Phonebook</h1>
-        <ContactForm onSubmit = {this.handleSubmit}></ContactForm>
-
-        {/* <div>
-            <h2>Contacts</h2>
-            <label>
-              Find contact by name
-              <input type="text"name="name"/>
-            </label>
-          </div>
-
-        <div>
-          <ul>
-            <li>
-              {this.state.contacts[0].id}
-              <button>delete contact</button>
-            </li>
-            <li>
-              {this.state.contacts[1].id}
-              <button>delete contact</button>
-            </li>
-            <li>
-              {this.state.contacts[2].id}
-              <button>delete contact</button>
-            </li>
-            <li>
-              {this.state.contacts[3].id}
-              <button>delete contact</button>
-            </li>
-          </ul>
-        </div> */}
+          <ContactForm onSubmit = {this.handleSubmit}></ContactForm>
+          <Filter onChange = {this.filterChange}></Filter>
         </DivStyled>
     );
   }
