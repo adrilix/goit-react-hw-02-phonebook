@@ -17,11 +17,11 @@ export const ButtonDeleteStyled = styled.button`
     border-radius: 6px;
     padding: 4px;
     text-transform: uppercase;
-    background: #1ab188;
+    background: rgb(255 107 96);
     color: #fff;
 
   &:hover {
-    background: #fff;
+    background: rgb(221 255 28);
     color: #1ab188;
     cursor: pointer;
 }

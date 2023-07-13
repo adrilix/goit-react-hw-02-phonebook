@@ -1,29 +1,43 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import Contact from 'components/Contact/Contact';
 
-class Filter extends Component {
-    state = {
-        id: null,
-        name: '',
-        number: '',
-    };
+const Filter = ({ value, contacts, onChange, onDeleteContact }) => {
+    return (
+        <>
+            <div>
+                <h2>Contacts</h2>
+                <label>
+                    Find contact by name
+                    <input onChange={onChange} type="text" name="name" value={value} />
+                </label>
+            </div>
 
-    render() {
-        return (
-            <>
-                <div>
-                    <h2>Contacts</h2>
-                    <label>
-                        Find contact by name
-                        <input onChange = {this.props.onChange} type="text" name="name" />
-                    </label>
-                </div>
+            <ul>
+                {contacts.map(contact => (
+                    <li key={contact.id}>
+                        <Contact
+                            {...contact}
+                            onDeleteContact={() => onDeleteContact(contact.id)}
+                        />
+                    </li>
+                ))}
+            </ul>
+        </>
+    );
+};
 
-                <div>
-                    <ul></ul>
-                </div>
-            </>
-        );
-    }
-}
+Filter.propTypes = {
+    onDeleteContact: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    contacts: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            number: PropTypes.string.isRequired,
+        }).isRequired
+    ).isRequired,
+    value: PropTypes.string,
+};
 
 export default Filter;

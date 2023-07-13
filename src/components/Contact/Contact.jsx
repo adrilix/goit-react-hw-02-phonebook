@@ -6,11 +6,11 @@ import {
     ButtonDeleteStyled
 } from './ContactStyled'
 
-const Contact = ({ name, number, onDeleteContact }) => (
+const Contact = ({ id, name, number, onDeleteContact }) => (
     <ContactStyled>
         <ContactDataStyled>{name}</ContactDataStyled>
         <ContactDataStyled>{number}</ContactDataStyled>
-        <ButtonDeleteStyled onClick={onDeleteContact} type="button">
+        <ButtonDeleteStyled onClick={()=>onDeleteContact(id)} type="button">
             delete
         </ButtonDeleteStyled>
     </ContactStyled>
@@ -18,8 +18,9 @@ const Contact = ({ name, number, onDeleteContact }) => (
 
 Contact.propTypes = {
     name: PropTypes.string.isRequired,
-    number: PropTypes.number.isRequired,
+    number: PropTypes.string.isRequired,
     onDeleteContact: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired,
 };
 
 export default Contact;
